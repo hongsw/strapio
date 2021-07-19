@@ -1,8 +1,11 @@
 class StrapIO {
   constructor(strapi) {
     this.strapi = strapi;
-    this.io = require("socket.io")(this.strapi.server);
-
+    this.io = require("socket.io")(this.strapi.server, {
+      cors: {
+        origin: "*",
+      }
+    });
     this.io.use((socket, next) => {
       if (socket.handshake.query && socket.handshake.query.token) {
 
